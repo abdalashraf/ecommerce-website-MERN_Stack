@@ -52,22 +52,22 @@ function DiscountProduct() {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        {products.map((product) => (
-          <Col key={product.id} xs={12} sm={6} md={4} lg={3} style={{ marginBottom: '20px' }} data-aos="fade-up">
-             <Card className='disscout-card' style={{ width: '18rem', height: '100%' }}>
+  {products.map((product) => (
+    <Col className=' card-margin' key={product.id} xs={12} sm={6} md={4} lg={3} data-aos="fade-up">
+      <Card className='disscout-card' style={{ width: '18rem', height: '100%' }}>
+        <Link to={`/detailsPage/${product.id}`}>
+          <Card.Img  className='card-image' variant="top" src={product.imageUrl} style={{ height: '240px', objectFit: 'cover' }} />
+        </Link>
+        <Card.Body>
+          <Card.Title>{product.title}</Card.Title>
+          <Card.Text>{product.description}</Card.Text>
+          <Button variant="primary">Go somewhere</Button>
+        </Card.Body>
+      </Card>
+    </Col>
+  ))}
+</Row>
 
-              <Link to={`/detailsPage/${product.id}`}>
-              <Card.Img variant="top" src={product.imageUrl} style={{ height: '240px', objectFit: 'cover' }} />
-              </Link>
-              <Card.Body>
-                <Card.Title>{product.title}</Card.Title>
-                <Card.Text>{product.description}</Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
     </Container>
   );
 }

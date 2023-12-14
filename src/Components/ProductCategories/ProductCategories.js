@@ -55,7 +55,7 @@ const ProductCategories = () => {
       </Row>
       <Row className="justify-content-center">
         {products.map((product) => (
-          <Col key={product.id} xs={12} sm={6} md={4} lg={3} style={{ marginBottom: '20px' }} data-aos="fade-up">
+          <Col className='card-margin' key={product.id} xs={12} sm={6} md={4} lg={3} style={{ marginBottom: '20px' }} data-aos="fade-up">
              <Card className='disscout-card' style={{ width: '18rem', height: '100%' }}>
 
               <Link to={`/detailsPage/${product.id}`}>

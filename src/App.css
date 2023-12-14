@@ -508,10 +508,13 @@ body{
 }
 .disscout-container{
     margin-top: 2%;
-    
+    /* background-color: #dd4b39; */
+
+    height: fit-content !important;
 }
 .disscout-card{
-    background-color: #57b846;
+    
+   
     height: 140%;
 }
 .productcard-container{
@@ -555,4 +558,17 @@ box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 .logo-admin{
     width: 170px !important;
+}
+.card-margin{
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    /* background-color: #dd4b39; */
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+    margin: 10px !important;
+    width: fit-content !important;
+    background-color: transparent;
+    /* height: 80vh !important; */
+    /* margin-bottom: 2000px !important; */
+}
+body{
+    background-color:#F5F5F5     !important ; 
 }
