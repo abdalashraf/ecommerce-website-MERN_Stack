@@ -29,6 +29,19 @@ const products = [
     title: 'Product 4',
     description: 'Description for Product 4',
     imageUrl: 'https://via.placeholder.com/100x180',
+  }
+  ,
+  {
+    id: 5,
+    title: 'Product 1',
+    description: 'Description for Product 1',
+    imageUrl: 'https://via.placeholder.com/100x180',
+  },
+  {
+    id: 6,
+    title: 'Product 2',
+    description: 'Description for Product 2',
+    imageUrl: 'https://via.placeholder.com/100x180',
   },
 ];
 
