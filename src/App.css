@@ -573,3 +573,37 @@ box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 body{
     background-color:#F5F5F5     !important ; 
 }
+.deleteButton{
+    font-size:xx-large ;
+    color: red;
+}
+.productname{
+    /* background-color: #0093c4 ; */
+    font-size:xx-large ;
+font-weight: bolder !important;
+    text-align: center;
+}
+.productprice{
+    /* background-color: #57b846; */
+    margin-top: -9%;
+    text-align: center;
+}
+.productprice-new{
+    margin-top: -6%;
+
+}
+.productbutton{
+    /* background-color: #dd4b39 !important; */
+    margin-left: 70px;
+    border-radius: 10px !important;
+    /* height: 20%; */
+    border: none !important;
+    margin-top: 2%;
+}
+.productbutton-new{
+    margin-left: 100px;
+    border-radius: 10px !important;
+    /* height: 20%; */
+    border: none !important;
+    margin-top: 2%;
+}

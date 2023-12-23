@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./ProductTable.css"
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { AiFillDelete } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 const ProductTable = () => {
+  let [products,setProducts]=useState([])
+  useEffect(function () {
+    axios.get("/productdata")
+      .then(function (res) {
+        setProducts(res.data);
+        console.log(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+ 
+  const  productdelete = (productID)=>{
+    axios.delete(`/product-delete?anc=${productID}`).then(function(res){
+      if(res){
+        toast.success("Product Deleted SuccessFully")
+      }
+  setProducts(products.filter(pro=>pro._id !=productID))
+  console.log(res);
+}).catch ( function(error){
+  console.log(error);
+})
+  }
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => console.log(data);
   return (
@@ -699,13 +724,9 @@ const ProductTable = () => {
         <div className="scrollbar-sidebar">
           <div className="app-sidebar__inner">
             <ul className="vertical-nav-menu">
-              <li className="app-sidebar__heading">Dashboards</li>
-              <li>
-                <a href="index.html" className="mm-active">
-                  <i className="metismenu-icon pe-7s-rocket" />
-                  Dashboard Example 1
-                </a>
-              </li>
+            <li className="app-sidebar__heading">Admin Dashboard</li>
+
+              
               <li className="app-sidebar__heading">Product Management</li>
               <li>
                 
@@ -721,6 +742,28 @@ const ProductTable = () => {
                     <Link to="/productTable" >
                       {/* <i className="metismenu-icon" /> */}
                     Product Table </Link>
+                  </li>
+                
+                </ul>
+              </li>
+            
+             
+            </ul>
+          </div>
+          <div className="app-sidebar__inner">
+            <ul className="vertical-nav-menu">
+              
+              
+              <li className="app-sidebar__heading">Order Management</li>
+              <li>
+                
+                <ul>
+                 
+                
+                  <li>
+                    <Link to="/orderTable" >
+                      {/* <i className="metismenu-icon" /> */}
+                    Order Table </Link>
                   </li>
                 
                 </ul>
@@ -807,36 +850,36 @@ const ProductTable = () => {
       
       <div className="panel-body">
       <table className="table table-style">
-  <thead>
+      <thead>
     <tr>
       <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
+      <th> Name</th>
+      <th> Category</th>
+      <th>Price</th>
       <th>Action</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><AiFillDelete /> <GrUpdate /></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
+        {
+          products.map(function(product,index){
+            const adjustedIndex = index + 1;
+            return<>
+           
+ <tbody>
+ <tr>
+   <th scope="row">{adjustedIndex}</th>
+   <td>{product.name}</td>
+   <td>{product.Category}</td>
+   <td>{product.price}</td>
+   {/* <td><AiFillDelete onClick={() => productdelete(product._id)} /> <GrUpdate /></td> */}
+   <td><AiFillDelete className='deleteButton' onClick={() => productdelete(product._id)} /></td>
+ </tr>
+ 
+</tbody>
+            </>  
+          })
+        }
+ 
+ 
 </table>
 
       </div>

@@ -4,12 +4,18 @@ import Footer from '../Footer/Footer';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 // import './SignupLogin.css'; // Import your CSS file for styling
 
 export const Login = () => {
+  let navigate=useNavigate()
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = data =>{
-    toast.success("Wellcome To Dashboard");
+    if(data.email==="admin@gmail.com"&&data.password==="admin"){
+      navigate("/adminDashboard")
+      toast.success("Wellcome To Dashboard");
+      
+    }
 
     console.log(data);
   } 

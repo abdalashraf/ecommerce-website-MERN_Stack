@@ -2,9 +2,32 @@ import React from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 const OrderForm = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
+    const onSubmit = data =>{
+      
+      
+
+      axios.post("/addorder", data)
+      .then(function (resp) {
+        if(resp){
+          reset()
+          toast.success("Thanks For Your Order")
+         
+        }
+      
+      })
+      .catch(function (error) {
+        console.error("Error making the POST request:", error);
+      });
+      console.log(data);
+    } 
+
+
+
+   
   return (
     <>
     <Header></Header>
@@ -77,15 +100,15 @@ const OrderForm = () => {
         <h4 className="mb-3">Billing address</h4>
         <form onSubmit={handleSubmit(onSubmit)} className="needs-validation" noValidate="">
           <div className="row">
-            <div className="col-md-6 mb-3">
-              <label htmlFor="firstName">First name</label>
+          <div className="mb-3">
+              <label htmlFor="firstName">Your Full Name</label>
               <input
-              {...register('firstName')}
+              {...register('Name')}
 
                 type="text"
                 className="form-control"
                
-                placeholder=""
+                placeholder="ALI ABDAL"
                 defaultValue=""
                 required=""
               />
@@ -93,7 +116,7 @@ const OrderForm = () => {
                 Valid first name is required.
               </div>
             </div>
-            <div className="col-md-6 mb-3">
+            {/* <div className="col-md-6 mb-3">
               <label htmlFor="lastName">Last name</label>
               <input
               {...register('lastName')}
@@ -106,7 +129,7 @@ const OrderForm = () => {
                 required=""
                 />
               <div className="invalid-feedback">Valid last name is required.</div>
-            </div>
+            </div> */}
           </div>
          
           <div className="mb-3">
@@ -133,7 +156,7 @@ const OrderForm = () => {
               type="text"
               className="form-control"
              
-              placeholder="1234 Main St"
+              placeholder="Liaquat Abad No.2 Jhang Road Faisalabad"
               required=""
             />
             <div className="invalid-feedback">
@@ -145,7 +168,22 @@ const OrderForm = () => {
           <hr className="mb-4" />
         
           
-          
+          <div className="mb-3">
+            <label htmlFor="address">Phone Number</label>
+            <input
+              {...register('number')}
+
+              type="text"
+              className="form-control"
+             
+              placeholder="03001234567"
+              required=""
+            />
+            <div className="invalid-feedback">
+              Please enter your shipping address.
+            </div>
+          </div>
+        
           
           
           <button className="btn btn-primary btn-lg btn-block" type="submit">

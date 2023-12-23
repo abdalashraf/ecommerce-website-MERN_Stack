@@ -2,10 +2,11 @@ import React from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Button from 'react-bootstrap/Button';
-
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate, useParams} from 'react-router-dom';
 const products = [
   {
     id: 1,
@@ -56,7 +57,31 @@ const headingStyle = {
   fontFamily: 'Arial, sans-serif !important', // Change this to the desired font family
 };
 
+
 const ProductCategories = () => {
+  
+let [catProduct,setCatProduct]=useState([])
+let CategoriesID =useParams()
+console.log(CategoriesID.CategoriesID,"CategoriesID")
+useEffect(function () {
+  axios.get(`/category?anc=${CategoriesID.CategoriesID}`)
+    
+  .then(function (res) {
+
+      console.log("Raw Data:", res.data); // Log raw data
+      setCatProduct(res.data)
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}, [CategoriesID]);
+
+let navigate=useNavigate()
+const handleproductID= (productID)=>{
+  navigate(`/detailsPage/${productID}`);
+
+}
   return (
     <>
     <Header></Header>
@@ -67,18 +92,19 @@ const ProductCategories = () => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        {products.map((product) => (
+        {catProduct.map((product) => (
           <Col className='card-margin' key={product.id} xs={12} sm={6} md={4} lg={3} style={{ marginBottom: '20px' }} data-aos="fade-up">
              <Card className='disscout-card' style={{ width: '18rem', height: '100%' }}>
 
               <Link to={`/detailsPage/${product.id}`}>
-              <Card.Img variant="top" src={product.imageUrl} style={{ height: '240px', objectFit: 'cover' }} />
+              <Card.Img variant="top" src={product.file} style={{ height: '240px', objectFit: 'cover' }} />
               </Link>
               <Card.Body>
-                <Card.Title>{product.title}</Card.Title>
-                <Card.Text>{product.description}</Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-              </Card.Body>
+          <Card.Title className='productname'>Name {product.name}</Card.Title>
+          <Card.Text className='productprice'>Price : {product.price}</Card.Text>
+          <Button onClick={()=>handleproductID(product._id)} className='productbutton bg-danger' variant="primary">Buy Now</Button>
+
+        </Card.Body>
             </Card>
           </Col>
         ))}

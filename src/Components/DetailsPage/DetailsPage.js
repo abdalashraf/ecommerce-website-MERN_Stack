@@ -1,8 +1,26 @@
-import React from 'react'
+import axios from 'axios'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
+import { useParams } from 'react-router-dom'
 const DetailsPage = () => {
+  let productID=useParams()
+  console.log("id aa gai",productID)
+
+  let [Product,setProducts]=useState([])
+  useEffect(function () {
+
+    axios.get(`/singleproduct?anc=${productID.productID}`)
+      .then(function (res) {
+        setProducts(res.data);
+        console.log(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [productID]);
   return (
     <>
     <Header></Header>
@@ -11,11 +29,19 @@ const DetailsPage = () => {
         <div className="col-md-5">
           <div className="main-img">
             <img
+             style={{
+              height: '650px',
+              objectFit: 'cover', // or 'contain' based on your preference
+            }}
               className="img-fluid"
-              src="https://cdn.pixabay.com/photo/2015/07/24/18/40/model-858753_960_720.jpg"
+              src={Product.file}
+              // src="https://cdn.pixabay.com/photo/2015/07/24/18/40/model-858753_960_720.jpg"
               alt="ProductS"
             />
-            <div className="row my-3 previews">
+            {/* gallery image */}
+
+
+            {/* <div className="row my-3 previews">
               <div className="col-md-3">
                 <img
                   className="w-100"
@@ -44,21 +70,21 @@ const DetailsPage = () => {
                   alt="Sale"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="col-md-7">
           <div className="main-description px-2">
-            <div className="category text-bold">Category: Women</div>
+            <div className="category text-bold">Category:{Product.Category}</div>
             <div className="product-title text-bold my-3">
-              Black dress for Women
+          {Product.name}
             </div>
             <div className="price-area my-4">
               <p className="old-price mb-1">
                 <del>$100</del>{" "}
                 <span className="old-price-discount text-danger">(20% off)</span>
               </p>
-              <p className="new-price text-bold mb-1">$80</p>
+              <p className="new-price text-bold mb-1">{Product.price}</p>
               <p className="text-secondary mb-1">
                 (Additional tax may apply on checkout)
               </p>
@@ -134,10 +160,12 @@ const DetailsPage = () => {
           <div className="similar-product">
             <img
               className="w-100"
-              src="https://source.unsplash.com/gsKdPcIyeGg"
+              src="
+              https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8fDA%3D
+                            "
               alt="Preview"
             />
-            <p className="title">Lovely black dress</p>
+            <p className="title">Dell</p>
             <p className="price">$100</p>
           </div>
         </div>
@@ -145,10 +173,10 @@ const DetailsPage = () => {
           <div className="similar-product">
             <img
               className="w-100"
-              src="https://source.unsplash.com/sg_gRhbYXhc"
+              src="https://images.unsplash.com/photo-1592434134753-a70baf7979d5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGxhcHRvcCUyMGhwfGVufDB8fDB8fHww"
               alt="Preview"
             />
-            <p className="title">Lovely Dress with patterns</p>
+            <p className="title">Huawei</p>
             <p className="price">$85</p>
           </div>
         </div>
@@ -156,10 +184,10 @@ const DetailsPage = () => {
           <div className="similar-product">
             <img
               className="w-100"
-              src="https://source.unsplash.com/gJZQcirK8aw"
+              src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8fDA%3D"
               alt="Preview"
             />
-            <p className="title">Lovely fashion dress</p>
+            <p className="title">Mac Book</p>
             <p className="price">$200</p>
           </div>
         </div>
@@ -167,10 +195,10 @@ const DetailsPage = () => {
           <div className="similar-product">
             <img
               className="w-100"
-              src="https://source.unsplash.com/qbB_Z2pXLEU"
+              src="https://images.unsplash.com/photo-1604684768394-52a862c2955a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8fDA%3D"
               alt="Preview"
             />
-            <p className="title">Lovely red dress</p>
+            <p className="title">HP</p>
             <p className="price">$120</p>
           </div>
         </div>

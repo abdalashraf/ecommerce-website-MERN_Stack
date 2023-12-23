@@ -34,7 +34,8 @@ function Gallery() {
 
       {/* Gallery Rows */}
       <Row>
-        <Col md={4} sm={6} data-aos="fade-up">
+      <Col md={4} sm={6}  data-aos="flip-up">
+
           <div className="thumbnail">
             <img
             src="https://media.istockphoto.com/id/1319763646/photo/mature-indian-man-messaging-on-smartphone.jpg?s=612x612&w=0&k=20&c=xvTEE_Kn9DFla9LDp_TEcvSz1rrXmeDwOPP9MHKKmeM="
@@ -45,7 +46,7 @@ function Gallery() {
           </div>
         </Col>
 
-        <Col md={4} sm={6}  data-aos="fade-up">
+        <Col md={4} sm={6}  data-aos="flip-up">
           <div className="thumbnail">
             <img
             src="https://media.istockphoto.com/id/1091348950/photo/close-up-of-hands-typing-on-laptop-night-work-concept.jpg?s=612x612&w=0&k=20&c=zbsP8zNPpur8dca1E_kIZ6q0uFsxxUBmlm_1LJ8OmMY="
@@ -55,8 +56,8 @@ function Gallery() {
             />
           </div>
         </Col>
+        <Col md={4} sm={6}  data-aos="flip-up">
 
-        <Col md={4} sm={6}  data-aos="fade-up">
           <div className="thumbnail">
             <img
             src="https://media.istockphoto.com/id/1321115829/photo/video-on-demand-tv-streaming-multimedia.jpg?s=612x612&w=0&k=20&c=bnvCaFmO7ZD8WtKAaEhyNFddGXNnQwfEIBR47iZpvXc="

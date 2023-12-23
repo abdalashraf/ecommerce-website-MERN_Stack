@@ -1,60 +1,13 @@
-import React from 'react';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-const products = [
-  {
-    id: 1,
-    title: 'Product 1',
-    description: 'Description for Product 1',
-    imageUrl: 'https://via.placeholder.com/100x180',
-  },
-  {
-    id: 2,
-    title: 'Product 2',
-    description: 'Description for Product 2',
-    imageUrl: 'https://via.placeholder.com/100x180',
-  },
-  {
-    id: 3,
-    title: 'Product 3',
-    description: 'Description for Product 3',
-    imageUrl: 'https://via.placeholder.com/100x180',
-  },
-  {
-    id: 4,
-    title: 'Product 4',
-    description: 'Description for Product 4',
-    imageUrl: 'https://via.placeholder.com/100x180',
-  },
-  {
-    id: 5,
-    title: 'Product 1',
-    description: 'Description for Product 1',
-    imageUrl: 'https://via.placeholder.com/100x180',
-  },
-  {
-    id: 6,
-    title: 'Product 2',
-    description: 'Description for Product 2',
-    imageUrl: 'https://via.placeholder.com/100x180',
-  },
-  // {
-  //   id: 7,
-  //   title: 'Product 3',
-  //   description: 'Description for Product 3',
-  //   imageUrl: 'https://via.placeholder.com/100x180',
-  // },
-  // {
-  //   id: 8,
-  //   title: 'Product 4',
-  //   description: 'Description for Product 4',
-  //   imageUrl: 'https://via.placeholder.com/100x180',
-  // },
-];
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+ 
 const headingStyle = {
     textAlign: 'center',
     fontSize: '24px',
@@ -65,6 +18,22 @@ const headingStyle = {
     backgroundColor: 'transparent', 
   };
 function ProductCard() {
+let [Product,setProducts]=useState([])
+let navigate=useNavigate()
+  useEffect(function () {
+    axios.get("/productdata")
+      .then(function (res) {
+        setProducts(res.data);
+        console.log(res.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  const handleproductID= (productID)=>{
+    navigate(`/detailsPage/${productID}`);
+
+  }
   return (
     <Container className='disscout-container' style={{ height: '70vh' }}>
     <Row>
@@ -73,22 +42,26 @@ function ProductCard() {
       </Col>
     </Row>
     <Row className="justify-content-center">
-      {products.map((product) => (
-        <Col className='card-margin' key={product.id} xs={12} sm={6} md={4} lg={3} style={{ marginBottom: '20px' }} data-aos="fade-up">
-           <Card className='disscout-card' style={{ width: '18rem', height: '100%' }}>
+  {Product.map((product) => (
+    <Col className=' card-margin' key={product.id} xs={12} sm={6} md={4} lg={3} data-aos="zoom-in-down">
+      <Card className='disscout-card' style={{ width: '18rem', height: '100%' }}>
+        <Link to={`/detailsPage/${product._id}`}>
+          <Card.Img  className='card-image' variant="top" 
+                   src={product.file}
+                   //  src="https://media.istockphoto.com/id/1319763646/photo/mature-indian-man-messaging-on-smartphone.jpg?s=612x612&w=0&k=20&c=xvTEE_Kn9DFla9LDp_TEcvSz1rrXmeDwOPP9MHKKmeM="
 
-            <Link to={`/detailsPage/${product.id}`}>
-            <Card.Img variant="top" src={product.imageUrl} style={{ height: '240px', objectFit: 'cover' }} />
-            </Link>
-            <Card.Body>
-              <Card.Title>{product.title}</Card.Title>
-              <Card.Text>{product.description}</Card.Text>
-              <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+          style={{ height: '240px', objectFit: 'cover' }} />
+        </Link>
+        <Card.Body>
+          <Card.Title className='productname'>Name {product.name}</Card.Title>
+          <Card.Text className='productprice'>Price : {product.price}</Card.Text>
+          <Button onClick={()=>handleproductID(product._id)} className='productbutton bg-danger' variant="primary">Buy Now</Button>
+
+        </Card.Body>
+      </Card>
+    </Col>
+  ))}
+</Row>
   </Container>
   );
 }

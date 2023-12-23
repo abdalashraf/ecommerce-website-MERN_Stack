@@ -2,9 +2,33 @@ import React from 'react'
 import "./addProduct.css"
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 const AddProduct = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, watch, reset,formState: { errors } } = useForm();
+    const onSubmit = data =>{
+
+      let meraform= new FormData()
+meraform.append("name",data.name)
+meraform.append("Details" ,data.Details)
+meraform.append("Category",data.Category)
+meraform.append("price",data.price)
+meraform.append("file" ,data.pic[0])
+      axios.post("/addProduct", meraform)
+      .then(function (resp) {
+        if(resp){
+          reset()
+          toast.success("Product Add Succesfully")
+          console.log(resp.data.img);
+          console.log(resp.data);
+        }
+      
+      })
+      .catch(function (error) {
+        console.error("Error making the POST request:", error);
+      });
+      console.log(data);
+    } 
   return (
 
     <>
@@ -696,13 +720,9 @@ const AddProduct = () => {
         <div className="scrollbar-sidebar">
           <div className="app-sidebar__inner">
             <ul className="vertical-nav-menu">
-              <li className="app-sidebar__heading">Dashboards</li>
-              <li>
-                <a href="index.html" className="mm-active">
-                  <i className="metismenu-icon pe-7s-rocket" />
-                  Dashboard Example 1
-                </a>
-              </li>
+            <li className="app-sidebar__heading">Admin Dashboard</li>
+
+              
               <li className="app-sidebar__heading">Product Management</li>
               <li>
                 
@@ -721,6 +741,28 @@ const AddProduct = () => {
                   </li>
                 
                  
+                
+                </ul>
+              </li>
+            
+             
+            </ul>
+          </div>
+          <div className="app-sidebar__inner">
+            <ul className="vertical-nav-menu">
+              
+              
+              <li className="app-sidebar__heading">Order Management</li>
+              <li>
+                
+                <ul>
+                 
+                
+                  <li>
+                    <Link to="/orderTable" >
+                      {/* <i className="metismenu-icon" /> */}
+                    Order Table </Link>
+                  </li>
                 
                 </ul>
               </li>
@@ -846,14 +888,12 @@ const AddProduct = () => {
              Product Category
             </label>
             <div className="col-sm-3">
-              <input
-              {...register('Category')} 
-                type="text"
-                className="form-control"
-               
-             
-                placeholder="Add Product Category ."
-              />
+            <select {...register('Category')} className="form-control">
+        <option value="">Select Product Category</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Mobile">Mobile</option>
+        <option value="LCD">LCD</option>
+      </select>
             </div>
           </div>{" "}
           {/* form-group // */}
@@ -880,7 +920,8 @@ const AddProduct = () => {
               <label className="control-label small" htmlFor="file_img">
                Image Upload
               </label>{" "}
-              <input type="file" name="file_img" />
+              
+              <input  {...register('pic')} type="file"  />
             </div>
           
           </div>{" "}
@@ -901,7 +942,7 @@ const AddProduct = () => {
           <hr />
           <div className="form-group">
             <div className="col-sm-offset-3 col-sm-9">
-              <button type="submit" className="btn btn-primary">
+              <button className="btn btn-primary">
                 Add Product
               </button>
             </div>

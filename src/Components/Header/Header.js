@@ -11,7 +11,7 @@ const Header = () => {
     console.log(`Selected option: ${selectedValue}`);
 
     // Use navigate to change the page and pass the selected option as a parameter
-    if (selectedValue === 'option1' || selectedValue === 'option2' || selectedValue === 'option3') {
+    if (selectedValue === 'Mobile' || selectedValue === 'Laptop' || selectedValue === 'LCD') {
       navigate(`/productCategories/${selectedValue}`);
       // navigate("/productCategories")
     }
@@ -75,7 +75,7 @@ const Header = () => {
             </li>
             <li className="nav-item m-1">
               <a className="nav-link disabled text-light" aria-disabled="true">
-                Disabled
+              Contact US
               </a>
             </li>
 
@@ -87,16 +87,16 @@ const Header = () => {
     onChange={handleSelectChange}
   >
     <option style={optionStyle} value="">
-      Select an option
+     Products Categories
     </option>
-    <option style={optionStyle} value="option1">
-      Option 1
+    <option style={optionStyle} value="Mobile">
+    Mobile
     </option>
-    <option style={optionStyle} value="option2">
-      Option 2
+    <option style={optionStyle} value="Laptop">
+    Laptop
     </option>
-    <option style={optionStyle} value="option3">
-      Option 3
+    <option style={optionStyle} value="LCD">
+    LCD
     </option>
   </select>
 </li>
